@@ -1,7 +1,11 @@
 module.exports = function(app) {
 	var controller = app.controllers.peca;
 
-	app.get('/pecas', controller.list);
-	app.get('/pecas/:id', controller.get);
+	app.route('/pecas')
+		.get(controller.list);
+	
+	app.route('/pecas/:id')
+		.get(controller.get)
+		.delete(controller.remove);
 
 };

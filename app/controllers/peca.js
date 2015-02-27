@@ -30,7 +30,20 @@ module.exports = function() {
 
 	};
 
-	return controller;
+	/**
+	* Deleta uma peça de acordo com o id fornecido
+	*/
+	controller.remove = function(req, res) {
+		var id = req.params.id;
 
+		dummyList = dummyList.filter(function(peca) {
+			return peca._id != id;
+		});
+
+		res.status(204).end();
+
+	};
+
+	return controller;
 
 };

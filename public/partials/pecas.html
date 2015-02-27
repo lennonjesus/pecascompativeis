@@ -1,10 +1,13 @@
 <div class="jumbotron">
 	<h1 class="text-center">Lista de peças</h1>
 </div>
+<p ng-show="mensagem.texto">
+	{{mensagem.texto}}
+</p>
 <button class="btn btn-primary">Novo</button>
 <input type="search" placeholder="Nome..." ng-model="filtro" />
 <div class="table-responsive">
-	<table class="table table-hover">
+	<table class="table table-hover" ng-show="pecas.length">
 		<tr>
 			<th>Nome</th>
 			<th class="text-center">Tags</th>
@@ -14,8 +17,11 @@
 			<td>{{peca.nome}}</td>
 			<td class="text-center">{{peca.tags}}</td>
 			<td class="text-center">
-				<button class="brn btn-warning">remover</button>
+				<button class="brn btn-warning" ng-click="remove(peca)">remover</button>
 			</td>
 		</tr>
 	</table>
+	<p class="text-info" ng-hide="pecas.length">
+		Não há peças cadastradas
+	</p>
 </div>
