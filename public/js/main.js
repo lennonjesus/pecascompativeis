@@ -1,4 +1,4 @@
-angular.module('pecas-compativeis', ['ngRoute'])
+angular.module('pecas-compativeis', ['ngRoute', 'ngResource'])
 	.config(function($routeProvider) {
 
 		$routeProvider.when('/pecas', {
