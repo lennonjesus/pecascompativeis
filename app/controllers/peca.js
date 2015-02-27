@@ -3,10 +3,10 @@ module.exports = function() {
 	var controller = {};
 
 	var dummyList = [
-		{_id: 1, nome: 'Filtro de Óleo'},
-		{_id: 2, nome: 'Filtro de Ar'},
-		{_id: 3, nome: 'Pastilha de Freio Dianteira'},
-		{_id: 4, nome: 'Pastilha de Freio Traseira'}
+		{_id: 1, nome: 'Filtro de Óleo', tags: 'bmw f650gs f800gs'},
+		{_id: 2, nome: 'Filtro de Ar', tags: 'bmw f650gs f800gs'},
+		{_id: 3, nome: 'Pastilha de Freio Dianteira', tags: 'bmw f650gs g650gs f800gs'},
+		{_id: 4, nome: 'Pastilha de Freio Traseira', tags: 'bmw f650gs g650gs f800gs'}
 	];
 
 	/**
