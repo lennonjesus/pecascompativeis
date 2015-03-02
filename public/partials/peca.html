@@ -1,2 +1,22 @@
-<button>Uma peça</button>
-<p>{{resultadoTeste}}</p>
+<h1 class="text-center">Contato</h1>
+<p ng-show="mensagem.texto">
+	{{mensagem.texto}}
+</p>
+<form>
+	<div class="form-group">
+		<label for="nome">Nome</label>
+		<input type="text" class="form-control" id="nome" name="nome" required ng-model="peca.nome">
+	</div>
+	<div class="form-group">
+		<label for="email">Tags</label>
+		<div class="input-group">
+			<input type="text" class="form-control" id="tags" placeholder="bmw f800gs" name="tags" ng-model="peca.tags" required>
+		</div>
+	</div>
+	<div>
+		<button type="submit" class="btn btn-primary">
+			Salvar
+		</button>
+		<a href="#/" class="btn btn-default">Voltar</a>
+	</div>
+</form>

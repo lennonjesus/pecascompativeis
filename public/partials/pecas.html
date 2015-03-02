@@ -14,7 +14,11 @@
 			<th class="text-center"></th>
 		</tr>
 		<tr ng-repeat="peca in pecas | filter: filtro">
-			<td>{{peca.nome}}</td>
+			<td>
+				<a ng-href="#/peca/{{peca._id}}">
+					{{peca.nome}}
+				</a>
+			</td>
 			<td class="text-center">{{peca.tags}}</td>
 			<td class="text-center">
 				<button class="brn btn-warning" ng-click="remove(peca)">remover</button>
