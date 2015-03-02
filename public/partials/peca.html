@@ -2,7 +2,7 @@
 <p ng-show="mensagem.texto">
 	{{mensagem.texto}}
 </p>
-<form>
+<form ng-submit="salvar()">
 	<div class="form-group">
 		<label for="nome">Nome</label>
 		<input type="text" class="form-control" id="nome" name="nome" required ng-model="peca.nome">
@@ -10,7 +10,7 @@
 	<div class="form-group">
 		<label for="email">Tags</label>
 		<div class="input-group">
-			<input type="text" class="form-control" id="tags" placeholder="bmw f800gs" name="tags" ng-model="peca.tags" required>
+			<input type="text" class="form-control" id="tags" placeholder="Ex: bmw f800gs" name="tags" ng-model="peca.tags" required>
 		</div>
 	</div>
 	<div>

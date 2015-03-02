@@ -6,6 +6,11 @@ angular.module('pecas-compativeis', ['ngRoute', 'ngResource'])
 			controller: 'PecasController'
 		});
 
+		$routeProvider.when('/peca', {
+			templateUrl: 'partials/peca.html',
+			controller: 'PecaController'
+		});
+
 		$routeProvider.when('/peca/:pecaId', {
 			templateUrl: 'partials/peca.html',
 			controller: 'PecaController'

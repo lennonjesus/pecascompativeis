@@ -1,5 +1,7 @@
 module.exports = function() {
 
+	var SEQUENCE = 1000;
+
 	var controller = {};
 
 	var dummyList = [
@@ -43,6 +45,42 @@ module.exports = function() {
 		res.status(204).end();
 
 	};
+
+	/*
+	* Salva os dados de uma peça
+	*/
+	controller.save = function(req, res) {
+		var peca = req.body;
+
+		peca = peca._id ? update(peca) : create(peca);
+
+		res.json(peca);
+	};
+
+	/**
+	* Cria uma nova peça
+	*/
+	function create (newPeca) {
+		newPeca._id = ++SEQUENCE;
+		dummyList.push(newPeca);
+		return newPeca;
+	}
+
+	/**
+	* Altera os dados de peça existente
+	*/
+	function update (updatedPeca) {
+		
+		dummyList = dummyList.map(function(peca) {
+			if (peca._id == updatedPeca._id) {
+				peca = updatedPeca;
+			}
+
+			return peca;
+		});
+
+		return updatedPeca;
+	}
 
 	return controller;
 
