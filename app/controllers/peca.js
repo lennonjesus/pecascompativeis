@@ -1,69 +1,88 @@
-module.exports = function() {
-
-	var SEQUENCE = 1000;
+module.exports = function(app) {
 
 	var controller = {};
 
-	var dummyList = [
-		{_id: 1, nome: 'Filtro de Óleo', tags: 'bmw f650gs f800gs'},
-		{_id: 2, nome: 'Filtro de Ar', tags: 'bmw f650gs f800gs'},
-		{_id: 3, nome: 'Pastilha de Freio Dianteira', tags: 'bmw f650gs g650gs f800gs'},
-		{_id: 4, nome: 'Pastilha de Freio Traseira', tags: 'bmw f650gs g650gs f800gs'}
-	];
+	var Peca = app.models.peca;
 
 	/**
 	* Retorna uma lista de peças
 	*/
 	controller.list = function(req, res) {
-		res.json(dummyList);
+		Peca.find()
+			.exec()
+			.then(
+				function(pecas) {
+					res.json(pecas);
+				},
+				function(erro) {
+					console.error(erro);
+					res.status(500).json(erro);
+				}
+			);
 	};
 
 	/**
 	* Retorna uma peça de acordo com o id fornecido
 	*/
 	controller.get = function(req, res) {
-		var id = req.params.id;
-
-		var peca = dummyList.filter(function(peca) {
-			return peca._id == id;
-		})[0];
-
-		peca ? res.json(peca) : res.status(404).send('Peça não encontrada.');
-
+		var _id = req.params.id;
+		
+		Peca.findById(_id).exec().then(function(peca) {
+			if(!peca) throw new Error("Peça não encontrada.");
+			res.json(peca);
+		}, 
+		function(erro) {
+			console.error(erro);
+			res.status(404).json(erro);
+		});
 	};
 
 	/**
 	* Deleta uma peça de acordo com o id fornecido
 	*/
 	controller.remove = function(req, res) {
-		var id = req.params.id;
+		var _id = req.params.id;
 
-		dummyList = dummyList.filter(function(peca) {
-			return peca._id != id;
+		Peca.remove({"_id": _id}).exec().then(function() {
+			res.end();
+		},
+		function(erro) {
+			return console.error(erro);
 		});
-
-		res.status(204).end();
-
 	};
 
 	/*
 	* Salva os dados de uma peça
 	*/
 	controller.save = function(req, res) {
-		var peca = req.body;
+		var _id = req.body._id;
 
-		peca = peca._id ? update(peca) : create(peca);
-
-		res.json(peca);
+		if(_id) {
+			Peca.findByIdAndUpdate(_id, req.body).exec().then(function(peca) {
+				res.json(peca);
+			},
+			function(erro) {
+				console.error(erro);
+				res.status(500).json(erro);
+			});
+		} else {
+			Peca.create(req.body).then(
+				function(peca) {
+					res.status(201).json(peca);
+				},
+				function(erro) {
+					console.error(erro);
+					res.status(500).json(erro);
+				}
+			);
+		}
 	};
 
 	/**
 	* Cria uma nova peça
 	*/
 	function create (newPeca) {
-		newPeca._id = ++SEQUENCE;
-		dummyList.push(newPeca);
-		return newPeca;
+		
 	}
 
 	/**
@@ -71,15 +90,6 @@ module.exports = function() {
 	*/
 	function update (updatedPeca) {
 		
-		dummyList = dummyList.map(function(peca) {
-			if (peca._id == updatedPeca._id) {
-				peca = updatedPeca;
-			}
-
-			return peca;
-		});
-
-		return updatedPeca;
 	}
 
 	return controller;
