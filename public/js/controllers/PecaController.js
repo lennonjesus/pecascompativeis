@@ -1,6 +1,4 @@
-angular.module('pecas-compativeis').controller('PecaController', function($scope, $routeParams, $resource) {
-
-	var Peca = $resource('/pecas/:id');
+angular.module('pecas-compativeis').controller('PecaController', function($scope, $routeParams, $resource, Peca) {
 
 	if ($routeParams.pecaId) {
 

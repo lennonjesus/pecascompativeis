@@ -1,12 +1,10 @@
-angular.module('pecas-compativeis').controller('PecasController', function($scope, $resource) {
+angular.module('pecas-compativeis').controller('PecasController', function($scope, $resource, Peca) {
 	
 	$scope.filtro = '';
 
 	$scope.pecas = [];
 
 	$scope.mensagem = {texto: ''};
-
-	var Peca = $resource('/pecas/:id');
 
 	function list() {
 		Peca.query(
