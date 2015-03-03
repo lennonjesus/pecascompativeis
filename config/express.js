@@ -1,9 +1,12 @@
 var express = require('express');
 
-// var home = require('../app/routes/home'); // removido, substituido por express-load
 var load = require('express-load');
 
 var bodyParser = require('body-parser');
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 module.exports = function() {
 	var app = express();
@@ -18,7 +21,14 @@ module.exports = function() {
 	app.use(bodyParser.json());
 	app.use(require('method-override')());
 
-	//home(app); // removido, substituido por express-load
+	app.use(cookieParser());
+	app.use(session({
+		secret: "It's The End Of The World As We Know It (And I Feel Fine)",
+		resave: true,
+		saveUnitialized: true
+	}));
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	load('models', {cwd: 'app'})
 		.then('controllers')
